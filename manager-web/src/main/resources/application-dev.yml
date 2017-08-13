@@ -13,3 +13,6 @@ heiha:
       manager:
         host: manager.sinfonia.heiha.com
         port: 80
+spring:
+  thymeleaf:
+    cache: false

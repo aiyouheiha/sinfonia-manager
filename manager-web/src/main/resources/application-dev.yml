@@ -1,6 +1,8 @@
 memcached:
   address: 127.0.0.1:11211
 eureka:
+  instance:
+    hostname: manager.sinfonia.heiha.com
   client:
     serviceUrl:
       defaultZone: http://eureka.sinfonia.heiha.com:20089/eureka/

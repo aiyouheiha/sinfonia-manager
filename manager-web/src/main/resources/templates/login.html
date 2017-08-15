@@ -9,8 +9,12 @@
 		<meta name="description" content="sinfonia manager"/>
 		<meta name="author" content="heiha"/>
 
-		<link th:href="@{/css/layout.css}" rel="stylesheet" type="text/css"/>
-		<link th:href="@{/css/login.css}" rel="stylesheet" type="text/css"/>
+		<!-- CSS -->
+		<link rel="stylesheet" th:href="@{/css/reset.css}"/>
+		<link rel="stylesheet" th:href="@{/css/supersized.css}"/>
+		<link rel="stylesheet" th:href="@{/css/style.css}"/>
+		<link rel="stylesheet" th:href="@{/css/layout.css}"/>
+		<link rel="stylesheet" th:href="@{/css/login.css}"/>
 
 		<script type="text/javascript" th:src="@{/js/jquery-1.7.2.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/js.js}"></script>
@@ -26,27 +30,27 @@
 					</a>
 				</div>
 				<div class="login container " id="login">
-					<p class="text-big text-center logo-color">
-						Sign in to Sinfonia
-					</p>
-					<p class=" text-center margin-small-top logo-color text-small">
-						QvQ
-					</p>
+					<p class="text-big text-center logo-color">Sign in to Sinfonia</p>
+					<p class=" text-center margin-small-top logo-color text-small">QvQ</p>
 					<form class="login-form" action="index.html" method="post" autocomplete="off">
 						<div class="login-box border text-small" id="box">
 							<div class="name border-bottom">
-								<input type="text" placeholder="Username or email address" id="username" name="username" datatype="*" nullmsg="username/email"/>
+								<input id="username" name="username" datatype="*"
+									   placeholder="Username or email address"
+									   nullmsg="Please input username"/>
 							</div>
 							<div class="pwd">
-								<input type="password" placeholder="Password" datatype="*" id="password" name="password" nullmsg="password"/>
+								<input id="password" name="password" type="password" datatype="*6-16"
+									   placeholder="Password"
+									   nullmsg="Please input password"/>
 							</div>
 						</div>
 						<input type="hidden" name="formhash" value="5abb5d21"/>
 						<input type="submit" class="btn text-center login-btn" value="Sign in"/>
 					</form>
 					<div class="forget">
-						<a href="repassword.html" class="forget-pwd text-small fl">Forgot password?</a>
-						<a href="register.html" class="forget-new text-small fr" id="forget-new">Create an account</a>
+						<a th:href="@{/password_reset}" class="forget-pwd text-small fl">Forgot password?</a>
+						<a th:href="@{/register}" class="forget-new text-small fr" id="forget-new">Create an account</a>
 					</div>
 				</div>
 			</div>
@@ -78,22 +82,22 @@
 
 		/*动画（注册）*/
 		$(document).ready(function(e) {
-			// $("input[name=username]").focus();
-			// $('.login-form').Validform({
-			// 	ajaxPost: true,
-			// 	tiptype: function(msg) {
-			// 		if (msg) popup_msg('' + msg + '');
-			// 	},
-			// 	callback: function(ret) {
-			// 		popup_msg('' + ret.info + '');
-			// 		if (ret.status == 1) {
-			// 			if (ret.uc_user_synlogin) {
-			// 				$("body").append(ret.uc_user_synlogin);
-			// 			}
-			// 			setTimeout("window.location='" + ret.url + "'", 2000);
-			// 		}
-			// 	}
-			// })
+			 $("input[name=username]").focus();
+			 $('.login-form').Validform({
+			 	ajaxPost: true,
+			 	tiptype: function(msg) {
+			 		if (msg) popup_msg('' + msg + '');
+			 	},
+			 	callback: function(ret) {
+			 		popup_msg('' + ret.info + '');
+			 		if (ret.status == 1) {
+			 			if (ret.uc_user_synlogin) {
+			 				$("body").append(ret.uc_user_synlogin);
+			 			}
+			 			setTimeout("window.location='" + ret.url + "'", 2000);
+			 		}
+			 	}
+			 })
 
 		});
 	</script>

@@ -1,10 +1,17 @@
 package com.heiha.sinfonia.manager.web.util;
 
 import com.heiha.sinfonia.manager.web.pojo.WeChatAuthInfo;
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * <br>
@@ -13,6 +20,7 @@ import java.util.Arrays;
  * <b>Author:</b> heiha<br>
  */
 public class WeChatUtil {
+    private final static Logger LOGGER = LoggerFactory.getLogger(WeChatUtil.class);
     private final static String TOKEN = "sinfonia";
 
     /**
@@ -58,7 +66,7 @@ public class WeChatUtil {
 
     /**
      * 将字节数组转换成十六进制字符串
-     * @param digestArra
+     * @param digestArray
      * @return
      */
     private static String byteToStr(byte[] digestArray) {
@@ -79,5 +87,44 @@ public class WeChatUtil {
         tmpArr[1] = Digit[dByte&0X0F];
         String s = new String(tmpArr);
         return s;
+    }
+
+    public static String response(Document document) {
+        Element root = document.getRootElement();
+        String fromUserName = root.element("FromUserName").getStringValue();
+        String toUserName = root.element("ToUserName").getStringValue();
+        LOGGER.info("\nDocument: {}\nFromUserName: {}\nToUserName: {}", root.getStringValue(), fromUserName, toUserName);
+
+        // iterate through child elements of root
+        for (Iterator<Element> it = root.elementIterator(); it.hasNext();) {
+            Element e = it.next();
+            System.out.println(e.getName() + ": " + e.getStringValue());
+        }
+
+        String result = formatXmlAnswer(fromUserName, toUserName, "read ok");
+        LOGGER.info("result: {}", result);
+        return result;
+    }
+
+    /**
+     * 封装文字类的返回消息
+     * @param to
+     * @param from
+     * @param content
+     * @return
+     */
+    public static String formatXmlAnswer(String to, String from, String content) {
+        StringBuffer sb = new StringBuffer();
+        Date date = new Date();
+        sb.append("<xml><ToUserName><![CDATA[");
+        sb.append(to);
+        sb.append("]]></ToUserName><FromUserName><![CDATA[");
+        sb.append(from);
+        sb.append("]]></FromUserName><CreateTime>");
+        sb.append(date.getTime());
+        sb.append("</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[");
+        sb.append(content);
+        sb.append("]]></Content><FuncFlag>0</FuncFlag></xml>");
+        return sb.toString();
     }
 }

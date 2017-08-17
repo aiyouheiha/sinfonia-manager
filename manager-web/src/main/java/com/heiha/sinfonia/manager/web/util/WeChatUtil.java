@@ -118,14 +118,18 @@ public class WeChatUtil {
 
         StringBuffer replyContent = new StringBuffer();
         switch (content) {
-            case "sgs":
-                replyContent = replyContent.append("房间号");
+            case "你好":
+                replyContent = replyContent.append("你好呀");
+                break;
+            case "hello":
+                replyContent = replyContent.append("emmmm~~~~");
                 break;
             default:
                 replyContent.append("● v ●");
+                break;
         }
 
-        String result = formatXmlAnswer(fromUserName, toUserName, "read ok");
+        String result = formatXmlAnswer(fromUserName, toUserName, replyContent.toString());
         LOGGER.info("result: {}", result);
         return result;
     }

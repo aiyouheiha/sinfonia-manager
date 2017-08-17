@@ -1,6 +1,8 @@
 package com.heiha.sinfonia.manager.web.util;
 
+import com.heiha.sinfonia.manager.service.WeChatService;
 import com.heiha.sinfonia.manager.web.pojo.WeChatAuthInfo;
+import com.heiha.sinfonia.manager.web.pojo.WechatMsg;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -9,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
@@ -22,6 +27,7 @@ import java.util.Iterator;
 public class WeChatUtil {
     private final static Logger LOGGER = LoggerFactory.getLogger(WeChatUtil.class);
     private final static String TOKEN = "sinfonia";
+    private final static DateFormat df = new SimpleDateFormat();
 
     /**
      * 通过校验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
@@ -89,16 +95,34 @@ public class WeChatUtil {
         return s;
     }
 
-    public static String response(Document document) {
+    public static String response(Document document, WeChatService weChatService) throws ParseException {
         Element root = document.getRootElement();
-        String fromUserName = root.element("FromUserName").getStringValue();
         String toUserName = root.element("ToUserName").getStringValue();
-        LOGGER.info("\nDocument: {}\nFromUserName: {}\nToUserName: {}", root.getStringValue(), fromUserName, toUserName);
+        String fromUserName = root.element("FromUserName").getStringValue();
+        Date createTime = df.parse(root.element("CreateTime").getStringValue());
+        String msgType = root.elementText("MsgType");
+        String content = root.elementText("Content");
+        String msgId = root.elementText("MsgId");
+        LOGGER.info("\nToUserName: {}\nFromUserName: {}\nCreateTime: {}\nMsgType: {}\nContent: {}\nMsgId: {}",
+                toUserName, fromUserName, createTime, msgType, content, msgId);
+        WechatMsg wechatMsg = new WechatMsg();
+        wechatMsg.setToUserName(toUserName);
+        wechatMsg.setFromUserName(fromUserName);
+        wechatMsg.setCreateTime(createTime);
+        wechatMsg.setMsgType(msgType);
+        wechatMsg.setContent(content);
+        wechatMsg.setMsgId(msgId);
+        new Thread(() -> {
+            weChatService.save(wechatMsg);
+        }).start();
 
-        // iterate through child elements of root
-        for (Iterator<Element> it = root.elementIterator(); it.hasNext();) {
-            Element e = it.next();
-            System.out.println(e.getName() + ": " + e.getStringValue());
+        StringBuffer replyContent = new StringBuffer();
+        switch (content) {
+            case "sgs":
+                replyContent = replyContent.append("房间号");
+                break;
+            default:
+                replyContent.append("● v ●");
         }
 
         String result = formatXmlAnswer(fromUserName, toUserName, "read ok");

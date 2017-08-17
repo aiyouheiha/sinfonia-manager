@@ -36,8 +36,8 @@ import static org.bouncycastle.asn1.ua.DSTU4145NamedCurves.params;
  */
 @RestController
 @RequestMapping("/**/v1/**")
-public class CommonController {
-    private final static Logger LOGGER = LoggerFactory.getLogger(CommonController.class);
+public class PassThroughController {
+    private final static Logger LOGGER = LoggerFactory.getLogger(PassThroughController.class);
     private final static String COMMON_URL = "uC";
     private final static String COMMON_HTTP = "http://";
 

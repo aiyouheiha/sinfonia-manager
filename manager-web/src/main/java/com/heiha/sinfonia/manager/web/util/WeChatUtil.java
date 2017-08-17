@@ -27,7 +27,6 @@ import java.util.Iterator;
 public class WeChatUtil {
     private final static Logger LOGGER = LoggerFactory.getLogger(WeChatUtil.class);
     private final static String TOKEN = "sinfonia";
-    private final static DateFormat df = new SimpleDateFormat();
 
     /**
      * 通过校验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
@@ -99,7 +98,8 @@ public class WeChatUtil {
         Element root = document.getRootElement();
         String toUserName = root.element("ToUserName").getStringValue();
         String fromUserName = root.element("FromUserName").getStringValue();
-        Date createTime = df.parse(root.element("CreateTime").getStringValue());
+        Date createTime = new Date();
+        createTime.setTime(Long.parseLong(root.element("CreateTime").getStringValue()));
         String msgType = root.elementText("MsgType");
         String content = root.elementText("Content");
         String msgId = root.elementText("MsgId");

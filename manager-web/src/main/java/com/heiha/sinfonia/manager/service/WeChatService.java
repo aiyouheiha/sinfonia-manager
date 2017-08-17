@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @FeignClient("wechat")
 public interface WeChatService {
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(path = "/v1/msg", method = RequestMethod.POST)
     void save(@RequestBody WechatMsg wechatMsg);
 }

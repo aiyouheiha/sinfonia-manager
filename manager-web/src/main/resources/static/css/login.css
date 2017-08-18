@@ -1,4 +1,12 @@
 @charset "utf-8";
+.login-text-default {
+	color: #8f8f8f;
+	font-size: 14px;
+}
+
+.login-text-link {
+	cursor: pointer;
+}
 
 /* CSS Document */
 html{ height: 100%; width: 100%;}
@@ -52,17 +60,15 @@ input.input-error:focus{background-color: transparent;}
 	margin: 0 auto;
 }
 
-
 /* logo */
-
 .logo {
-	padding-top: 100px;
-	margin: 0 auto 20px;
+	padding-top: 88px;
+	margin: 0 auto 10px;
 }
 .logo1{margin: 0 auto 20px;}
 
 .logo-color {
-	color: #c0cad6;
+	color: #ffa200;
 }
 
 
@@ -169,8 +175,7 @@ input.input-error{
 }
 
 .forget-pwd {
-	color: #c1c8d1;
-	margin-left: 53px;
+	margin-left: auto;
 	padding-top: 20px;
 	cursor: pointer;
 }
@@ -186,9 +191,8 @@ input.input-error{
 }
 
 .forget-new {
-	color: #c1c8d1;
 	padding-top: 20px;
-	margin-right: 53px;
+	margin-right: auto;
 	cursor: pointer;
 }
 

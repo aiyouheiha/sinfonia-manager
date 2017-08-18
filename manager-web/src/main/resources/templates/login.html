@@ -1,89 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8"/>
-		<title>Login</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
-		<meta name="keywords" content="sinfonia"/>
-		<meta name="description" content="sinfonia manager"/>
-		<meta name="author" content="heiha"/>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
 
-		<!-- CSS -->
-		<link rel="stylesheet" th:href="@{/css/reset.css}"/>
-		<link rel="stylesheet" th:href="@{/css/supersized.css}"/>
-		<link rel="stylesheet" th:href="@{/css/style.css}"/>
-		<link rel="stylesheet" th:href="@{/css/layout.css}"/>
-		<link rel="stylesheet" th:href="@{/css/login.css}"/>
-	</head>
-	<body>
-		<div class="logo text-center">
-			<a href="#">
-				<img th:src="@{/img/logo.png}" width="180px" height="180px"/>
-			</a>
-			<p class="text-big text-center logo-color">Sign in to Sinfonia</p>
+	<title>Login</title>
+
+	<meta name="keywords" content="sinfonia"/>
+	<meta name="description" content="sinfonia manager"/>
+	<meta name="author" content="heiha"/>
+
+	<!-- CSS -->
+	<link rel="stylesheet" th:href="@{/css/reset.css}"/>
+	<link rel="stylesheet" th:href="@{/css/supersized.css}"/>
+	<link rel="stylesheet" th:href="@{/css/style.css}"/>
+	<link rel="stylesheet" th:href="@{/css/layout.css}"/>
+	<link rel="stylesheet" th:href="@{/css/login.css}"/>
+
+	<script th:src="@{/js/jquery-1.8.2.min.js}" ></script>
+	<script th:src="@{/js/supersized.3.2.7.min.js}" ></script>
+	<script th:src="@{/js/supersized-init.js}" ></script>
+</head>
+<body>
+<div class="logo text-center">
+	<a href="#">
+		<img th:src="@{/img/logo.png}" width="180px" height="180px"/>
+	</a>
+	<p class="text-big text-center logo-color">Sign in to Sinfonia</p>
+</div>
+<div class="page-container">
+	<form method="post">
+		<input name="username" class="username" datatype="*"
+			   placeholder="Username or email address"
+			   nullmsg="Please input username"/>
+		<input type="password" name="password" class="password" datatype="*6-16"
+			   placeholder="Password"
+			   nullmsg="Please input password"/>
+		<button class="submit_button">SIGN IN</button>
+		<div class="error"><span>+</span></div>
+		<div class="forget">
+			<a th:href="@{/password_reset}" class="forget-pwd text-default fl">Forgot password?</a>
+			<a th:href="@{/register}" class="forget-new text-default fr" id="forget-new">Create an account</a>
 		</div>
-		<div class="page-container">
-			<form action="" method="post">
-				<input name="username" class="username" datatype="*"
-					   placeholder="Username or email address"
-					   nullmsg="Please input username"/>
-				<input type="password" name="password" class="password" datatype="*6-16"
-					   placeholder="Password"
-					   nullmsg="Please input password"/>
-				<input type="Captcha" class="Captcha" name="Captcha" placeholder="● v ●"/>
-				<button class="submit_button">Sign in</button>
-				<div class="error"><span>+</span></div>
-				<div class="forget">
-					<a th:href="@{/password_reset}" class="forget-pwd text-small fl">Forgot password?</a>
-					<a th:href="@{/register}" class="forget-new text-small fr" id="forget-new">Create an account</a>
-				</div>
-			</form>
-		</div>
+	</form>
+</div>
 
-		<!-- Javascript -->
-		<script th:src="@{/js/jquery-1.8.2.min.js}" ></script>
-		<script th:src="@{/js/supersized.3.2.7.min.js}" ></script>
-		<script th:src="@{/js/supersized-init.js}" ></script>
-		<script th:src="@{/js/scripts.js}" ></script>
-		<script th:src="@{/js/js.js}"></script>
-		<script th:src="@{/js/love.js}"></script>
-		<script th:src="@{/js/Validform_v5.3.2_min.js}"></script>
-	</body>
-
-	<script type="text/javascript">
-		function popup_msg(msg) {
-			$(".popup").html("" + msg + "");
-			$(".popupDom").animate({
-				"top": "0px"
-			}, 400);
-			setTimeout(function() {
-				$(".popupDom").animate({
-					"top": "-40px"
-				}, 400);
-			}, 2000);
-		}
-
-		/*动画（注册）*/
-		$(document).ready(function(e) {
-			 $("input[name=username]").focus();
-			 $('.login-form').Validform({
-			 	ajaxPost: true,
-			 	tiptype: function(msg) {
-			 		if (msg) popup_msg('' + msg + '');
-			 	},
-			 	callback: function(ret) {
-			 		popup_msg('' + ret.info + '');
-			 		if (ret.status == 1) {
-			 			if (ret.uc_user_synlogin) {
-			 				$("body").append(ret.uc_user_synlogin);
-			 			}
-			 			setTimeout("window.location='" + ret.url + "'", 2000);
-			 		}
-			 	}
-			 })
-
-		});
-	</script>
-
+<script th:src="@{/js/scripts.js}" ></script>
+<script th:src="@{/js/js.js}"></script>
+<script th:src="@{/js/Validform_v5.3.2_min.js}"></script>
+</body>
 </html>

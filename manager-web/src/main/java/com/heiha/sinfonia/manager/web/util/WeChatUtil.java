@@ -121,9 +121,6 @@ public class WeChatUtil {
             case "你好":
                 replyContent = replyContent.append("● v ●");
                 break;
-            default:
-                replyContent.append("success");
-                break;
         }
 
         String result = formatXmlAnswer(fromUserName, toUserName, replyContent.toString());
@@ -139,6 +136,8 @@ public class WeChatUtil {
      * @return
      */
     public static String formatXmlAnswer(String to, String from, String content) {
+        if (content == null || content.equals(""))
+            return "success";
         StringBuffer sb = new StringBuffer();
         Date date = new Date();
         sb.append("<xml><ToUserName><![CDATA[");

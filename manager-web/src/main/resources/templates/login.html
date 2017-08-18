@@ -21,10 +21,9 @@
 			<a href="#">
 				<img th:src="@{/img/logo.png}" width="180px" height="180px"/>
 			</a>
+			<p class="text-big text-center logo-color">Sign in to Sinfonia</p>
 		</div>
 		<div class="page-container">
-			<p class="text-big text-center logo-color">Sign in to Sinfonia</p>
-			<p class=" text-center margin-small-top logo-color text-small">QvQ</p>
 			<form action="" method="post">
 				<input name="username" class="username" datatype="*"
 					   placeholder="Username or email address"
@@ -32,7 +31,7 @@
 				<input type="password" name="password" class="password" datatype="*6-16"
 					   placeholder="Password"
 					   nullmsg="Please input password"/>
-				<input type="Captcha" class="Captcha" name="Captcha" placeholder="请输入验证码！"/>
+				<input type="Captcha" class="Captcha" name="Captcha" placeholder="● v ●"/>
 				<button class="submit_button">Sign in</button>
 				<div class="error"><span>+</span></div>
 				<div class="forget">
@@ -40,13 +39,6 @@
 					<a th:href="@{/register}" class="forget-new text-small fr" id="forget-new">Create an account</a>
 				</div>
 			</form>
-			<div class="connect">
-				<p>快捷</p>
-				<p>
-					<a class="facebook" href=""></a>
-					<a class="twitter" href=""></a>
-				</p>
-			</div>
 		</div>
 
 		<!-- Javascript -->

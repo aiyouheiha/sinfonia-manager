@@ -119,13 +119,10 @@ public class WeChatUtil {
         StringBuffer replyContent = new StringBuffer();
         switch (content) {
             case "你好":
-                replyContent = replyContent.append("你好呀");
-                break;
-            case "hello":
-                replyContent = replyContent.append("emmmm~~~~");
+                replyContent = replyContent.append("● v ●");
                 break;
             default:
-                replyContent.append("● v ●");
+                replyContent.append("success");
                 break;
         }
 

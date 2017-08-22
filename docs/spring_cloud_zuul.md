@@ -97,3 +97,4 @@ zuul:
       path: /user/center/**
       serviceId: user-center
   ignored-services: '*'
+```
